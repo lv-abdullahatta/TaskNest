@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
+    "Appwrite",
     "astro",
     "clsx",
     "cmdk",
@@ -10,6 +11,10 @@
     "pcoffe",
     "shadcn",
     "tailwindcss",
-    "Tickr"
-  ]
+    "Tickr",
+    "tickrit"
+  ],
+  "[markdown]": {
+    "editor.cursorSurroundingLines": 0
+  }
 }

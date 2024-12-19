@@ -1,5 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
+import { databases } from "@/lib/appwrite";
+import { Query } from "appwrite";
 import Link from "next/link";
 import confetti from "canvas-confetti";
 import "@/styles/Task.css";

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -12,8 +13,18 @@ import Icon from "@/components/common/Icon";
 import { Badge } from "@/components/ui/badge";
 import { Alert } from "@/components/ui/alert";
 import { useCalendar } from "@/hooks/useCalendar";
+import { databases } from "@/lib/appwrite";
+import { ID } from "appwrite";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Create_NewTaskPageForm() {
+  const router = useRouter();
+  const [taskName, setTaskName] = useState("");
+  const [priority, setPriority] = useState("");
+  const [type, setType] = useState("");
+  const [frequency, setFrequency] = useState("one-time");
+  const [status, setStatus] = useState("false");
+  const [description, setDescription] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [projects, setProjects] = useState<string[]>([]);
   const { selectedDates, handleDateSelect, formatDate } = useCalendar({ 0: new Date() }, (taskId, date) => {});
@@ -21,7 +32,7 @@ export default function Create_NewTaskPageForm() {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === " " || e.key === "Enter") {
-      e.preventDefault(); // Prevent default behavior
+      e.preventDefault();
       if (inputValue.trim() && projects.length < maxTags) {
         setProjects([...projects, inputValue.trim()]);
         setInputValue("");
@@ -33,8 +44,40 @@ export default function Create_NewTaskPageForm() {
     setProjects(projects.filter((project) => project !== projectToRemove));
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const newTask = {
+        taskName,
+        dueDate: selectedDates[0],
+        priority,
+        projects,
+        type,
+        subtasks: [], // You may want to add a field for subtasks
+        frequency,
+        attachments: false, // You may want to add attachment functionality
+        status: status === "true",
+        description,
+      };
+
+      const response = await databases.createDocument(
+        "66fb4eea002ce8fdcd94",
+        "66fb4ef2002e6fca5959",
+        ID.unique(),
+        newTask
+      );
+
+      toast.success("Task created successfully!");
+      router.push("/Pages/dashboard");
+    } catch (error) {
+      console.error("Error creating task:", error);
+      toast.error("Failed to create task. Please try again.");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <Toaster />
       <section className="py-12 md:py-20">
         <div className="container">
           <div className="mx-auto max-w-md space-y-6">
@@ -42,7 +85,7 @@ export default function Create_NewTaskPageForm() {
               <h1 className="text-3xl font-bold text-pink-600">Create a New Task</h1>
               <p className="text-muted-foreground">Fill out the form to add a new task to your list.</p>
             </div>
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="task-name">Task Name</Label>
                 <Input id="task-name" placeholder="Enter task name" />

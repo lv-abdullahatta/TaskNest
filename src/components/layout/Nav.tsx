@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
@@ -36,7 +36,7 @@ import {
   Moon,
 } from "lucide-react";
 import Add_New_Task from "../tasks/Add_New_Task";
-
+import { getCurrentUser, logout } from "@/lib/auth";
 const navItems = [
   { href: "/", icon: Home, label: "Home" },
   { href: "/Pages/dashboard", icon: LayoutDashboard, label: "Dashboard" },
@@ -53,10 +53,30 @@ export function Navbar() {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const currentUser = await getCurrentUser();
+      setUser(currentUser);
+    };
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setUser(null);
+      router.push("/Pages/auth");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   return (
     <header className="w-full bg-background shadow">
