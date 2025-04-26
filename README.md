@@ -1,6 +1,6 @@
 ## TaskNest
 
-Welcome to **Tickr✔it**, your ultimate task management application designed to help you stay organized and productive. Whether you're managing personal tasks or collaborating with a team, Tickr✔it offers a comprehensive set of features to streamline your workflow.
+Welcome to **TaskNest**, your ultimate task management application designed to help you stay organized and productive. Whether you're managing personal tasks or collaborating with a team, TaskNest offers a comprehensive set of features to streamline your workflow.
 
 ## Features
 
@@ -37,10 +37,6 @@ Welcome to **Tickr✔it**, your ultimate task management application designed to
 3.  **Invite Team Members**: Collaborate with others by inviting them to your projects.
 4.  **Track Progress**: Use the dashboard to monitor your task completion and performance metrics.
 
-## Why Choose Tickr✔it?
+## Why Choose TaskNest?
 
-Tickr✔it is designed for efficiency and ease of use, making task management accessible for everyone. Whether you're a busy professional, a student, or managing a household, our app adapts to your needs, helping you stay organized and productive.
-
-## Join Us
-
-Get started with Tickr✔it today and transform the way you manage your tasks! Visit our [website](https://tickrit.vercel.app/) for more information or check out our [documentation](https://github.com/Maxwell999b/To-Do-List-with-Authentication) for detailed guides on using the app. Feel free to contribute to our project by reporting issues, suggesting features, or submitting pull requests. Together, we can make Tickr✔it even better!
+TaskNest is designed for efficiency and ease of use, making task management accessible for everyone. Whether you're a busy professional, a student, or managing a household, our app adapts to your needs, helping you stay organized and productive.
